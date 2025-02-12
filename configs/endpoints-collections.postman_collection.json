@@ -1,0 +1,201 @@
+{
+	"info": {
+	  "_postman_id": "b2f16c30-aaaa-4a19-9999-123456789abc",
+	  "name": "API-Bimestral",
+	  "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+	  "_exporter_id": "987654321"
+	},
+	"item": [
+	  {
+		"name": "Auth",
+		"item": [
+		  {
+			"name": "Register",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "body": {
+				"mode": "formdata",
+				"formdata": [
+				  {
+					"key": "name",
+					"value": "Juanito",
+					"type": "text"
+				  },
+				  {
+					"key": "surname",
+					"value": "Pérez",
+					"type": "text"
+				  },
+				  {
+					"key": "username",
+					"value": "juanperez1",
+					"type": "text"
+				  },
+				  {
+					"key": "email",
+					"value": "juanperez1@gmail.com",
+					"type": "text"
+				  },
+				  {
+					"key": "phone",
+					"value": "22160098",
+					"type": "text"
+				  },
+				  {
+					"key": "password",
+					"value": "Abc12345!",
+					"type": "text"
+				  },
+				  {
+					"key": "role",
+					"value": "ADMIN",
+					"type": "text"
+				  },
+				  {
+					"key": "profilePicture",
+					"type": "file",
+					"src": ""
+				  }
+				]
+			  },
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/auth/register"
+			},
+			"response": []
+		  },
+		  {
+			"name": "Login",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n    \"email\": \"juanperez1@gmail.com\",\n    \"password\": \"Abc12345!\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/auth/login"
+			},
+			"response": []
+		  }
+		]
+	  },
+	  {
+		"name": "Users",
+		"item": [
+		  {
+			"name": "Buscar un usuario por ID",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/findUser/REEMPLAZAR_CON_UID"
+			},
+			"response": []
+		  },
+		  {
+			"name": "Listar Usuarios",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/user"
+			},
+			"response": []
+		  },
+		  {
+			"name": "Eliminar Usuario",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/deleteUser/REEMPLAZAR_CON_UID"
+			},
+			"response": []
+		  },
+		  {
+			"name": "Actualizar contraseña",
+			"request": {
+			  "method": "PATCH",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n    \"newPassword\": \"Abc12345NUEVA\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/updatePassword/REEMPLAZAR_CON_UID"
+			},
+			"response": []
+		  },
+		  {
+			"name": "Actualizar usuario",
+			"request": {
+			  "method": "PUT",
+			  "header": [],
+			  "body": {
+				"mode": "formdata",
+				"formdata": [
+				  {
+					"key": "name",
+					"value": "Juanito",
+					"type": "text"
+				  },
+				  {
+					"key": "surname",
+					"value": "Pérez Editado",
+					"type": "text"
+				  },
+				  {
+					"key": "username",
+					"value": "juanperez1",
+					"type": "text"
+				  },
+				  {
+					"key": "email",
+					"value": "juanperez1editado@gmail.com",
+					"type": "text"
+				  },
+				  {
+					"key": "phone",
+					"value": "22160098",
+					"type": "text"
+				  },
+				  {
+					"key": "role",
+					"value": "CLIENT",
+					"type": "text"
+				  }
+				]
+			  },
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/updateUser/REEMPLAZAR_CON_UID"
+			},
+			"response": []
+		  },
+		  {
+			"name": "Actualizar foto de perfil",
+			"request": {
+			  "method": "PATCH",
+			  "header": [],
+			  "body": {
+				"mode": "formdata",
+				"formdata": [
+				  {
+					"key": "profilePicture",
+					"type": "file",
+					"src": ""
+				  }
+				]
+			  },
+			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/updateProfilePicture/REEMPLAZAR_CON_UID"
+			},
+			"response": []
+		  }
+		]
+	  }
+	]
+  }
+  
