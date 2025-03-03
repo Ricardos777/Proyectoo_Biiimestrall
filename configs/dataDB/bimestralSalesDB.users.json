@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "67c6223044ac17531d04a625"
+  },
+  "name": "ricky",
+  "surname": "Figueroa",
+  "username": "Ricky777",
+  "email": "rickyelpro777@yahoo.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$CxL9tVl9rkr+pyQyDRZYHw$vODUOJ0HfWHrfJoNBHKE6YJeoxBdu4ciFMq6M/1eWFQ",
+  "profilePicture": null,
+  "phone": "54498235",
+  "role": "CLIENT",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-03-03T21:42:08.954Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-03T21:42:08.954Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c62712cbf62f5c442cbfb7"
+  },
+  "name": "pepe",
+  "surname": "Figueroaaa",
+  "username": "Ricky666",
+  "email": "rickyelpro666@yahoo.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$3/vREHwqHSULHbsoVMLETw$IItR02mMmBfBu3frw+oVpCIN6v3Z/bKNauBYJJzculA",
+  "profilePicture": "pp-1741039378693.jpg",
+  "phone": "54498235",
+  "role": "CLIENT",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-03-03T22:02:58.816Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-03T22:02:58.816Z"
+  }
+}]
