@@ -35,5 +35,4 @@ const createMulterConfig = (destinationFolder) => {
     })
 }
 
-// En este caso creo un config específico para las fotos de perfil
 export const uploadProfilePicture = createMulterConfig("../../public/uploads/profile-pictures")

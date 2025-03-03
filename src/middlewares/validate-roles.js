@@ -12,7 +12,7 @@ export const hasRoles = (...roles) => {
             })
         }
 
-        // Verifico si el role del usuario está incluido en los roles permitidos
+
         if(!roles.includes(req.usuario.role)){
             return res.status(401).json({
                 success: false,

@@ -12,18 +12,13 @@ import { validateJWT } from "./validate-jwt.js"
 import { hasRoles } from "./validate-roles.js"
 
 export const registerValidator = [
-    // Valido que el nombre no esté vacío
     body("name").notEmpty().withMessage("El nombre es requerido"),
-    // Valido que el apellido no esté vacío
     body("surname").notEmpty().withMessage("El apellido es requerido"),
-    // Valido que el username no esté vacío
     body("username").notEmpty().withMessage("El username es requerido"),
-    // Valido que el email sea un correo válido
     body("email").notEmpty().withMessage("El email es requerido"),
     body("email").isEmail().withMessage("No es un email válido"),
     body("email").custom(emailExists),
     body("username").custom(usernameExists),
-    // Valido que la contraseña cumpla con ciertos criterios mínimos
     body("password").isStrongPassword({
         minLength: 8,
         minLowercase:1,
@@ -31,13 +26,9 @@ export const registerValidator = [
         minNumbers: 1,
         minSymbols: 1
     }).withMessage("La contraseña no cumple con los requisitos mínimos"),
-    // Verifico que el teléfono tenga 8 dígitos
     body("phone").isLength({min:8, max:8}).withMessage("El teléfono debe tener 8 dígitos"),
-    // Aplico el middleware que revisa si hay errores
     validarCampos,
-    // En caso de error, borro el archivo si es que se subió uno
     deleteFileOnError,
-    // Manejo los errores de validación
     handleErrors
 ]
 

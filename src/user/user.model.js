@@ -1,8 +1,3 @@
-/*
-  Este esquema define la estructura de los documentos de usuario en MongoDB.
-  Ajusté el campo 'role' para que sea 'ADMIN' o 'CLIENT'.
-*/
-
 import { Schema, model} from "mongoose"
 
 const userSchema = Schema({
@@ -54,7 +49,7 @@ const userSchema = Schema({
     timestamps: true
 })
 
-// Sobrescribo el método toJSON para que no me devuelva la contraseña ni el _id
+
 userSchema.methods.toJSON = function(){
     const { password, _id, ...usuario } = this.toObject()
     usuario.uid = _id
