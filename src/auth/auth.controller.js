@@ -68,7 +68,7 @@ export const login = async (req, res) => {
         const token = await generateJWT(user.id)
 
         return res.status(200).json({
-            message: "Login successful",
+            message: "Login completado exitosamente",
             userDetails: {
                 token: token,
                 profilePicture: user.profilePicture
@@ -76,7 +76,7 @@ export const login = async (req, res) => {
         })
     } catch(err) {
         return res.status(500).json({
-            message: "login failed, server error",
+            message: "login fallido, error del servidor, comuniquese al PBX: 5449-8235",
             error: err.message
         })
     }

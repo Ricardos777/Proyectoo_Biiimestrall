@@ -162,7 +162,7 @@ router.put("/updateUser/:uid", updateUserValidator, updateUser)
  *             properties:
  *               profilePicture:
  *                 type: string
- *                 format: binary
+ *                  format: binary
  *     responses:
  *       200:
  *         description: Foto de perfil actualizada

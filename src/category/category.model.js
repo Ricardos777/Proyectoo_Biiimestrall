@@ -1,15 +1,15 @@
 import { Schema, model} from "mongoose"
 
-const userSchema = Schema({
+const categorySchema = Schema({
     name: {
         type: String,
-        required: [true, "El nombre es obligatorio"],
-        maxLength: [25, "El nombre no puede ecceder los 54 caracteres"]
+        required: [true, "Name is required"],
+        maxLength: [25, "Name cannot exceed 25 characters"]
     },
     surname: {
         type: String,
-        required: [true, "El apodo el obligatorio"],
-        maxLength: [25, "El apodo no peude ecceder los 25 caracteres"]
+        required: [true, "Surname is required"],
+        maxLength: [25, "Surname cannot exceed 25 characters"]
     },
     username: {
         type: String,
@@ -18,12 +18,12 @@ const userSchema = Schema({
     },
     email: {
         type: String,
-        required: [true, "El Email es obligatorio "],
+        required: [true, "Email is required"],
         unique: true
     },
     password: {
         type: String,
-        required: [true, "La Contraseña es obligatoria"]
+        required: [true, "Password is required"]
     },
     profilePicture: {
         type: String
