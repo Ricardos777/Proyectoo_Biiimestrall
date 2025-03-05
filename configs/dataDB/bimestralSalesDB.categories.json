@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "67c8ac3f30f07323a2690bc1"
+  },
+  "name": "General",
+  "description": "Categoría predeterminada",
+  "default": true,
+  "createdAt": {
+    "$date": "2025-03-05T19:55:43.732Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-05T19:55:43.732Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c8c9aba0e85bd08a4d526e"
+  },
+  "name": "Tecnología",
+  "description": "Categoría de productos tecnológicos",
+  "default": false,
+  "createdAt": {
+    "$date": "2025-03-05T22:01:15.579Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-05T22:01:15.579Z"
+  }
+}]

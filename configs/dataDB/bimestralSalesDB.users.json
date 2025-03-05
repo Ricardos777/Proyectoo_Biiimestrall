@@ -1,24 +1,5 @@
 [{
   "_id": {
-    "$oid": "67c7bf4ed94cf409f690f9ac"
-  },
-  "name": "Admin Default",
-  "surname": "Coperex",
-  "username": "admin",
-  "email": "admin@coperex.org",
-  "password": "$argon2id$v=19$m=65536,t=3,p=4$D0JuZSvJRJq7EfAk0xP7SA$dtnWfPBEL5w39c4oDpmAmEotuu7iap84so+1+BLNbjI",
-  "phone": "12345678",
-  "role": "ADMIN",
-  "status": true,
-  "createdAt": {
-    "$date": "2025-03-05T03:04:46.682Z"
-  },
-  "updatedAt": {
-    "$date": "2025-03-05T03:04:46.682Z"
-  }
-},
-{
-  "_id": {
     "$oid": "67c6223044ac17531d04a625"
   },
   "name": "ricky",
@@ -79,61 +60,60 @@
 },
 {
   "_id": {
-    "$oid": "67c77c9e924ec03c9de40ff7"
-  },
-  "name": "papu",
-  "surname": "Figueroaaa",
-  "username": "Ricky111",
-  "email": "rickyelpro111@yahoo.com",
-  "password": "$argon2id$v=19$m=65536,t=3,p=4$MO1d0F+mtcL0QNBmYJosTw$yd6WJqy6sCtchilLgcOtP9iXqHsTtpQxhgh/cuvj4DE",
-  "profilePicture": null,
-  "phone": "54498235",
-  "role": "ADMIN",
-  "status": true,
-  "createdAt": {
-    "$date": "2025-03-04T22:20:14.582Z"
-  },
-  "updatedAt": {
-    "$date": "2025-03-04T22:20:14.582Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "67c7c3201ce32ba8adc21f2e"
+    "$oid": "67c8c44eb0eae8dce038ffcb"
   },
   "name": "Juanito",
   "surname": "Pérez",
   "username": "juanperez1",
   "email": "juanperez1@gmail.com",
-  "password": "$argon2id$v=19$m=65536,t=3,p=4$InektnM/Dhy7ERq92W8UPQ$ACGYHF5MR1g2JFfktijwC4dTuROh2g5aDz50iHTR/sc",
-  "profilePicture": null,
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$GeZmH+bjHSKnBEWrI2D/eA$/XNOojuBF8k0BTN2TDgLG726bZpKdpBIlHaVPFThda4",
+  "profilePicture": "bad-bunny-1741210702157.jpg",
   "phone": "22160098",
   "role": "CLIENT",
   "status": true,
   "createdAt": {
-    "$date": "2025-03-05T03:21:04.153Z"
+    "$date": "2025-03-05T21:38:22.420Z"
   },
   "updatedAt": {
-    "$date": "2025-03-05T03:21:04.153Z"
+    "$date": "2025-03-05T21:38:22.420Z"
   }
 },
 {
   "_id": {
-    "$oid": "67c7c43234c3e992c3bbcace"
+    "$oid": "67c8c5b4532af1025e28788c"
+  },
+  "name": "Admin Default",
+  "surname": "Coperex",
+  "username": "admin",
+  "email": "admin@coperex.org",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$nhNnJzy83fuD/1UePCaAwg$jxGPQ8Ea8IC3pvIDfP1g+dByoL8h6QyHjUe8LQbKYAY",
+  "phone": "12345678",
+  "role": "ADMIN",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-03-05T21:44:20.442Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-05T21:44:20.442Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c8c911a0e85bd08a4d5266"
   },
   "name": "Juanito",
-  "surname": "Pérez",
-  "username": "juan",
-  "email": "juan@gmail.com",
-  "password": "$argon2id$v=19$m=65536,t=3,p=4$4ZIHJvpDmhlVaeOfoF6m7A$um/uYqaeBa/vCtCKu8Ft78bfG86y31NxK9WPxVsdTz8",
-  "profilePicture": "MSI_MEG_GODLIKE-1741145138466.jpg",
+  "surname": "Pérezfds",
+  "username": "juanperez1sdfs",
+  "email": "juanperez324231@gmail.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$uVTB6lPKT2zwpDTVEGLGpw$6pzspOeotTAbXsSzrL5R6uDS/VhSi77nrCQnhhzh+zU",
+  "profilePicture": "bad-bunny-1741211921351.jpg",
   "phone": "22160098",
   "role": "CLIENT",
   "status": true,
   "createdAt": {
-    "$date": "2025-03-05T03:25:38.553Z"
+    "$date": "2025-03-05T21:58:41.486Z"
   },
   "updatedAt": {
-    "$date": "2025-03-05T03:25:38.553Z"
+    "$date": "2025-03-05T21:58:41.486Z"
   }
 }]

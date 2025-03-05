@@ -1,57 +1,27 @@
 {
 	"info": {
-	  "_postman_id": "b2f16c30-aaaa-4a19-9999-123456789abc",
-	  "name": "API-Bimestral",
-	  "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-	  "_exporter_id": "987654321"
+	  "_postman_id": "fd85c940-5f12-4e5b-9aa2-111111111111",
+	  "name": "API-Bimestral-Final",
+	  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 	  {
 		"name": "Auth",
 		"item": [
 		  {
-			"name": "Register",
+			"name": "Register (rol forzado a CLIENT en backend)",
 			"request": {
 			  "method": "POST",
 			  "header": [],
 			  "body": {
 				"mode": "formdata",
 				"formdata": [
-				  {
-					"key": "name",
-					"value": "Juanito",
-					"type": "text"
-				  },
-				  {
-					"key": "surname",
-					"value": "Pérez",
-					"type": "text"
-				  },
-				  {
-					"key": "username",
-					"value": "juanperez1",
-					"type": "text"
-				  },
-				  {
-					"key": "email",
-					"value": "juanperez1@gmail.com",
-					"type": "text"
-				  },
-				  {
-					"key": "phone",
-					"value": "22160098",
-					"type": "text"
-				  },
-				  {
-					"key": "password",
-					"value": "Abc12345!",
-					"type": "text"
-				  },
-				  {
-					"key": "role",
-					"value": "ADMIN",
-					"type": "text"
-				  },
+				  { "key": "name", "value": "Juanito", "type": "text" },
+				  { "key": "surname", "value": "Pérez", "type": "text" },
+				  { "key": "username", "value": "juanperez1", "type": "text" },
+				  { "key": "email", "value": "juanperez1@gmail.com", "type": "text" },
+				  { "key": "phone", "value": "22160098", "type": "text" },
+				  { "key": "password", "value": "Abc12345!", "type": "text" },
 				  {
 					"key": "profilePicture",
 					"type": "file",
@@ -59,7 +29,13 @@
 				  }
 				]
 			  },
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/auth/register"
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/auth/register",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","auth","register"]
+			  }
 			},
 			"response": []
 		  },
@@ -67,130 +43,603 @@
 			"name": "Login",
 			"request": {
 			  "method": "POST",
-			  "header": [],
+			  "header": [
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n    \"email\": \"juanperez1@gmail.com\",\n    \"password\": \"Abc12345!\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n  \"email\": \"juanperez1@gmail.com\",\n  \"password\": \"Abc12345!\"\n}",
+				"options": { "raw": { "language": "json" } }
 			  },
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/auth/login"
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/auth/login",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","auth","login"]
+			  }
 			},
 			"response": []
 		  }
 		]
 	  },
 	  {
-		"name": "Users",
+		"name": "User",
 		"item": [
 		  {
-			"name": "Buscar un usuario por ID",
+			"name": "Get All Users (ADMIN)",
 			"request": {
 			  "method": "GET",
-			  "header": [],
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/findUser/REEMPLAZAR_CON_UID"
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/user",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","user"]
+			  }
 			},
 			"response": []
 		  },
 		  {
-			"name": "Listar Usuarios",
+			"name": "Find User By ID",
 			"request": {
 			  "method": "GET",
-			  "header": [],
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/user"
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/user/findUser/{{uid}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","user","findUser","{{uid}}"]
+			  }
 			},
 			"response": []
 		  },
 		  {
-			"name": "Eliminar Usuario",
-			"request": {
-			  "method": "DELETE",
-			  "header": [],
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/deleteUser/REEMPLAZAR_CON_UID"
-			},
-			"response": []
-		  },
-		  {
-			"name": "Actualizar contraseña",
+			"name": "Update Password",
 			"request": {
 			  "method": "PATCH",
-			  "header": [],
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n    \"newPassword\": \"Abc12345NUEVA\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n  \"newPassword\": \"Abc12345NUEVA\"\n}",
+				"options": { "raw": { "language": "json" } }
 			  },
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/updatePassword/REEMPLAZAR_CON_UID"
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/user/updatePassword/{{uid}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","user","updatePassword","{{uid}}"]
+			  }
 			},
 			"response": []
 		  },
 		  {
-			"name": "Actualizar usuario",
+			"name": "Update User",
 			"request": {
 			  "method": "PUT",
-			  "header": [],
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
 			  "body": {
-				"mode": "formdata",
-				"formdata": [
-				  {
-					"key": "name",
-					"value": "Juanito",
-					"type": "text"
-				  },
-				  {
-					"key": "surname",
-					"value": "Pérez Editado",
-					"type": "text"
-				  },
-				  {
-					"key": "username",
-					"value": "juanperez1",
-					"type": "text"
-				  },
-				  {
-					"key": "email",
-					"value": "juanperez1editado@gmail.com",
-					"type": "text"
-				  },
-				  {
-					"key": "phone",
-					"value": "22160098",
-					"type": "text"
-				  },
-				  {
-					"key": "role",
-					"value": "CLIENT",
-					"type": "text"
-				  }
-				]
+				"mode": "raw",
+				"raw": "{\n  \"name\": \"Juanito Editado\",\n  \"surname\": \"Perez\",\n  \"email\": \"juanperez1editado@gmail.com\",\n  \"phone\": \"22160098\"\n}",
+				"options": { "raw": { "language": "json" } }
 			  },
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/updateUser/REEMPLAZAR_CON_UID"
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/user/updateUser/{{uid}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","user","updateUser","{{uid}}"]
+			  }
 			},
 			"response": []
 		  },
 		  {
-			"name": "Actualizar foto de perfil",
+			"name": "Update Profile Picture",
 			"request": {
 			  "method": "PATCH",
-			  "header": [],
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
 			  "body": {
 				"mode": "formdata",
 				"formdata": [
-				  {
-					"key": "profilePicture",
-					"type": "file",
-					"src": ""
-				  }
+				  { "key": "profilePicture", "type": "file", "src": "" }
 				]
 			  },
-			  "url": "http://127.0.0.1:3000/salesSystem/v1/user/updateProfilePicture/REEMPLAZAR_CON_UID"
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/user/updateProfilePicture/{{uid}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","user","updateProfilePicture","{{uid}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Delete User (ADMIN elimina CLIENT)",
+			"request": {
+			  "method": "DELETE",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/user/deleteUser/{{uid}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","user","deleteUser","{{uid}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Delete Account (CLIENT elimina su propia cuenta)",
+			"request": {
+			  "method": "DELETE",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"password\": \"Abc12345!\"\n}",
+				"options": { "raw": { "language": "json" } }
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/user/deleteAccount",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","user","deleteAccount"]
+			  }
+			},
+			"response": []
+		  }
+		]
+	  },
+	  {
+		"name": "Category (ADMIN)",
+		"item": [
+		  {
+			"name": "Create Category",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"name\": \"Tecnología\",\n  \"description\": \"Categoría de productos tecnológicos\"\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/category",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","category"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Get All Categories",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/category",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","category"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Update Category",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"name\": \"Tecnología Editada\",\n  \"description\": \"Categoría actualizada\"\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/category/{{id}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","category","{{id}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Delete Category",
+			"request": {
+			  "method": "DELETE",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/category/{{id}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","category","{{id}}"]
+			  }
+			},
+			"response": []
+		  }
+		]
+	  },
+	  {
+		"name": "Product (ADMIN)",
+		"item": [
+		  {
+			"name": "Create Product",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"name\": \"Laptop Gamer\",\n  \"description\": \"Laptop de alta gama\",\n  \"price\": 10000,\n  \"inventory\": 5,\n  \"category\": \"{{categoryId}}\"\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/product",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","product"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Get All Products",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/product",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","product"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Get Product By ID",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/product/{{id}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","product","{{id}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Update Product",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"name\": \"Laptop Gamer Editada\",\n  \"description\": \"Laptop mejorada\",\n  \"price\": 9000,\n  \"inventory\": 10\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/product/{{id}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","product","{{id}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Delete Product",
+			"request": {
+			  "method": "DELETE",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/product/{{id}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","product","{{id}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Get Most Sold Products",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/product/mostSold?limite=5",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","product","mostSold"],
+				"query": [
+				  { "key": "limite", "value": "5" }
+				]
+			  }
+			},
+			"response": []
+		  }
+		]
+	  },
+	  {
+		"name": "Client Product (CLIENT)",
+		"item": [
+		  {
+			"name": "Explore Products",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/client/products?search=&category=&limite=10&desde=0",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","client","products"],
+				"query": [
+				  { "key": "search", "value": "" },
+				  { "key": "category", "value": "" },
+				  { "key": "limite", "value": "10" },
+				  { "key": "desde", "value": "0" }
+				]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Explore Most Sold Products",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/client/products/mostSold?limite=5",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","client","products","mostSold"],
+				"query": [
+				  { "key": "limite", "value": "5" }
+				]
+			  }
+			},
+			"response": []
+		  }
+		]
+	  },
+	  {
+		"name": "Cart (CLIENT)",
+		"item": [
+		  {
+			"name": "Get Cart",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/cart",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","cart"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Add Item to Cart",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"productId\": \"{{productId}}\",\n  \"quantity\": 2\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/cart/add",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","cart","add"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Update Cart Item",
+			"request": {
+			  "method": "PATCH",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"productId\": \"{{productId}}\",\n  \"newQuantity\": 3\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/cart/update",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","cart","update"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Remove Cart Item",
+			"request": {
+			  "method": "DELETE",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"productId\": \"{{productId}}\"\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/cart/remove",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","cart","remove"]
+			  }
+			},
+			"response": []
+		  }
+		]
+	  },
+	  {
+		"name": "Invoice (CLIENT/ADMIN)",
+		"item": [
+		  {
+			"name": "Checkout (CLIENT)",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/invoice/checkout",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","invoice","checkout"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Get Invoices By User (ADMIN or Owner)",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/invoice/user/{{userId}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","invoice","user","{{userId}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Get Invoice By ID (ADMIN or Owner)",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/invoice/{{invoiceId}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","invoice","{{invoiceId}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Update Invoice (ADMIN)",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+				{ "key": "Content-Type", "value": "application/json" }
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 2\n    }\n  ]\n}"
+			  },
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/invoice/{{invoiceId}}",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","invoice","{{invoiceId}}"]
+			  }
+			},
+			"response": []
+		  },
+		  {
+			"name": "Get Purchase History (CLIENT)",
+			"request": {
+			  "method": "GET",
+			  "header": [
+				{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+			  ],
+			  "url": {
+				"raw": "http://127.0.0.1:3000/salesSystem/v1/invoice/history",
+				"protocol": "http",
+				"host": ["127","0","0","1"],
+				"port": "3000",
+				"path": ["salesSystem","v1","invoice","history"]
+			  }
 			},
 			"response": []
 		  }
@@ -198,3 +647,4 @@
 	  }
 	]
   }
+  
