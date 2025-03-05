@@ -1,60 +1,27 @@
-import { Schema, model} from "mongoose"
+import { Schema, model } from "mongoose"
 
-const categorySchema = Schema({
-    name: {
-        type: String,
-        required: [true, "Name is required"],
-        maxLength: [25, "Name cannot exceed 25 characters"]
-    },
-    surname: {
-        type: String,
-        required: [true, "Surname is required"],
-        maxLength: [25, "Surname cannot exceed 25 characters"]
-    },
-    username: {
-        type: String,
-        required: true,
-        unique:true
-    },
-    email: {
-        type: String,
-        required: [true, "Email is required"],
-        unique: true
-    },
-    password: {
-        type: String,
-        required: [true, "Password is required"]
-    },
-    profilePicture: {
-        type: String
-    },
-    phone: {
-        type: String,
-        minLength: 8,
-        maxLength: 8,
-        required: true
-    },
-    role: {
-        type: String,
-        required: true,
-        enum: ["ADMIN", "CLIENT"],
-        default: "CLIENT", 
-      },
-        status: {
-        type: Boolean,
-        default: true
-    }
-},
-{
-    versionKey: false,
-    timestamps: true
+/*
+  En este esquema defino la estructura de una categoría.
+  Cada categoría tiene un nombre, una descripción opcional y un flag 'default'
+  que indica si es la categoría predeterminada. Solo debe existir una categoría predeterminada.
+*/
+const categorySchema = new Schema({
+  name: {
+    type: String,
+    required: [true, "El nombre es obligatorio"],
+    unique: true
+  },
+  description: {
+    type: String,
+    default: ""
+  },
+  default: {
+    type: Boolean,
+    default: false
+  }
+}, {
+  versionKey: false,
+  timestamps: true
 })
 
-
-userSchema.methods.toJSON = function(){
-    const { password, _id, ...usuario } = this.toObject()
-    usuario.uid = _id
-    return usuario
-}
-
-export default model("User", userSchema)
+export default model("Category", categorySchema)
