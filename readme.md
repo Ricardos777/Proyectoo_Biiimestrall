@@ -1,84 +1,201 @@
 # Proyecto Bimestral: API de Gestión de Ventas
 
-Estimado profesor Braulio Echeverria,
+Estimado profesor **Braulio Echeverría**,
 
-A continuación, le presento el primer adelanto de mi Proyecto Bimestral, en el que he desarrollado una API en NodeJS para la gestión de ventas, productos y, de manera inicial, la administración de usuarios. Este documento está escrito desde mi perspectiva y está dirigido exclusivamente a usted, ya que es quien evaluará este avance.
+A continuación, le presento la versión **completa** de mi Proyecto Bimestral, en el que he desarrollado una API en NodeJS para la gestión de ventas, productos, usuarios y otras funcionalidades solicitadas. Este documento está escrito **desde mi perspectiva** y está dirigido exclusivamente a usted, ya que es quien evaluará este trabajo.
 
 ---
 
 ## Introducción
 
-Mi nombre es **Ricardo Yichkan Figueroa Juarez**, alumno de 6to perito en informática en la **Fundación Kinal**. Mi código personal de alumno es **2023370** y mi código técnico es **IN6BV**. Bajo su valiosa orientación, he emprendido el desarrollo de esta API que tiene como objetivo gestionar de forma segura y eficiente las operaciones comerciales de una empresa.
+Mi nombre es **Ricardo Yichkan Figueroa Juarez**, alumno de 6to perito en informática en la **Fundación Kinal**.  
+- **Código personal de alumno**: 2023370  
+- **Código técnico**: IN6BV  
 
-En esta primera fase, me he centrado en la **gestión de usuarios**, implementando funcionalidades que incluyen:
+Bajo su orientación, he construido esta API que busca **gestionar de forma segura y eficiente** las operaciones comerciales de una empresa. A lo largo de su desarrollo, he aplicado **buenas prácticas** de programación en JavaScript y **estructuras lógicas** que me permiten un código ordenado, escalable y seguro.
 
-- **Registro de usuarios:** Permite crear nuevos usuarios, encriptando la contraseña y gestionando la carga de la foto de perfil.
-- **Inicio de sesión:** Valida las credenciales del usuario y genera un token JWT.
-- **Consulta y listado:** Permite obtener los datos de un usuario específico por su ID y listar todos los usuarios activos.
-- **Actualización:** Facilita la modificación de datos del usuario, cambio de contraseña y actualización de la foto de perfil.
-- **Eliminación lógica:** Permite desactivar usuarios sin borrarlos de la base de datos.
+---
 
-El objetivo es construir una base sólida sobre la cual se podrán implementar, en futuras fases, otras funcionalidades como la gestión de productos y ventas.
+## Funcionalidades Implementadas
+
+A lo largo de las fases, se han implementado **10 puntos clave** que cubren la totalidad de los requerimientos:
+
+1. **Autenticación y Autorización**  
+   - Registro de usuarios con **rol forzado** a CLIENT (excepto el admin por defecto).  
+   - Inicio de sesión con **JWT**.  
+   - Middleware de validación de token y roles.
+
+2. **Gestión de Categorías (ADMIN)**  
+   - Crear, listar, editar y eliminar categorías.  
+   - Reasignación automática de productos a la categoría **General** si se elimina otra categoría.
+
+3. **Gestión de Productos (ADMIN)**  
+   - CRUD de productos: agregar, visualizar, editar y eliminar.  
+   - Control de inventario y marca de agotado (`isSoldOut`).  
+   - Obtener productos más vendidos (ordenados por campo `sold`).
+
+4. **Exploración de Productos (CLIENT)**  
+   - Listar catálogo de productos (con paginación y filtros).  
+   - Filtrar por categorías y buscar por nombre (case-insensitive).  
+   - Ver productos más vendidos.
+
+5. **Gestión de Carrito de Compras (CLIENT)**  
+   - Agregar productos al carrito.  
+   - Actualizar cantidades de productos en el carrito.  
+   - Eliminar productos del carrito.  
+   - Persistencia en MongoDB mediante el modelo `Cart`.
+
+6. **Proceso de Compra (CLIENT)**  
+   - Generar **facturas en PDF** al confirmar la compra (`checkout`).  
+   - Validar stock de cada producto antes de concretar la venta.
+
+7. **Gestión de Facturas (ADMIN/CLIENT)**  
+   - Visualizar facturas por usuario (CLIENT ve solo las suyas, ADMIN ve todas).  
+   - Mostrar detalles de cada factura.  
+   - Permitir edición de facturas con **validación de stock** (solo ADMIN).
+
+8. **Historial de Compras (CLIENT)**  
+   - Listar compras realizadas por el usuario autenticado (`GET /invoice/history`).
+
+9. **Gestión de Perfil (CLIENT)**  
+   - Editar información personal (datos, contraseña, foto de perfil).  
+   - Eliminar cuenta con confirmación de contraseña y medidas de seguridad.
+
+10. **Optimización y Seguridad**  
+   - Validaciones en los endpoints mediante **express-validator** y middlewares.  
+   - Manejo de errores centralizado (códigos 400 y 500).  
+   - Control de acceso por rol (ADMIN/CLIENT) y limitador de peticiones (rate-limit).
 
 ---
 
 ## Algoritmo de Funcionamiento
 
-A continuación, describo en forma de pseudocódigo el funcionamiento general de la API, desde el inicio hasta la finalización de cada solicitud:
+A continuación, describo el flujo general (pseudocódigo) de la API:
 
-1. **Inicio del Programa**
-   - Inicio en `index.js`.
-   - Se cargan las variables de entorno desde el archivo `.env`.
-   - Se invoca `initServer()` para arrancar el servidor.
+1. **Inicio del Programa**  
+   - Comienza en `index.js`.  
+   - Se cargan variables de entorno desde `.env`.  
+   - Se llama a `initServer()` para levantar el servidor.
 
-2. **Inicialización del Servidor**
-   - **Creación de la instancia de Express:**
-     - Inicializo la aplicación Express.
-   - **Configuración de Middlewares Globales:**
-     - Configuro el parseo de JSON y URL-encoded.
-     - Habilito CORS, Helmet y Morgan.
-     - Aplico un limitador de peticiones (rate limiting).
-   - **Conexión a la Base de Datos:**
-     - Se establece la conexión a MongoDB mediante `dbConnection()`.
-     - Se registran eventos para controlar el estado de la conexión.
-   - **Configuración de Rutas:**
-     - Se definen las rutas para la **Autenticación** (`/salesSystem/v1/auth`) y para la **Gestión de Usuarios** (`/salesSystem/v1/user`).
-     - Se expone la documentación Swagger en `/api-docs`.
-   - **Arranque del Servidor:**
-     - El servidor escucha en el puerto especificado y se notifica en consola.
+2. **Inicialización del Servidor**  
+   - **Express** crea la aplicación.  
+   - **Middlewares globales**: parseo de JSON, CORS, Helmet, Morgan, rate-limit.  
+   - **Conexión a MongoDB** vía `dbConnection()`.  
+   - **Creación del admin por defecto** y de la **categoría General** por defecto.  
+   - **Rutas**:  
+     - Autenticación: `/salesSystem/v1/auth`  
+     - Usuarios: `/salesSystem/v1/user`  
+     - Categorías: `/salesSystem/v1/category`  
+     - Productos: `/salesSystem/v1/product` (ADMIN)  
+     - Exploración de productos: `/salesSystem/v1/client/products` (CLIENT)  
+     - Carrito: `/salesSystem/v1/cart` (CLIENT)  
+     - Facturas: `/salesSystem/v1/invoice` (CLIENT/ADMIN)  
+   - **Documentación Swagger** en `/api-docs`.  
+   - **Arranque**: se inicia en el puerto definido en `.env`.
 
-3. **Procesamiento de Solicitudes**
-   - **Autenticación:**
-     - **Registro:** Se reciben y validan los datos del usuario, se encripta la contraseña, se guarda el usuario en la BD y se procesa la subida de la foto de perfil.
-     - **Login:** Se validan las credenciales, se verifica la contraseña y se genera un token JWT.
-   - **Gestión de Usuarios:**
-     - **Consulta por ID:** Se valida el token y se devuelve el usuario solicitado.
-     - **Listado de Usuarios:** Se consulta de forma paginada la base de datos, mostrando solo usuarios activos.
-     - **Eliminación:** Se cambia el estado del usuario a `false` (eliminación lógica).
-     - **Actualización:** Se permiten cambios en los datos del usuario, incluyendo la contraseña (siempre verificando que la nueva no sea idéntica a la anterior) y la foto de perfil.
-     
-4. **Manejo de Errores**
-   - Cada solicitud se procesa mediante middlewares de validación y manejo de errores.
-   - En caso de error, se envía una respuesta JSON detallando la causa (con códigos 400 o 500).
+3. **Procesamiento de Solicitudes**  
+   - **Autenticación**:  
+     - **Register**: encripta contraseña, crea usuario con rol CLIENT, gestiona foto de perfil.  
+     - **Login**: valida credenciales, genera JWT, maneja errores de credenciales.  
+   - **Gestión de Usuarios**:  
+     - **Consulta por ID**: requiere JWT y valida rol.  
+     - **Listado**: paginado de usuarios activos.  
+     - **Eliminación**: marca `status = false`.  
+     - **Actualización**: modifica datos y/o contraseña (verificando que no sea la misma).  
+     - **Eliminación de Cuenta**: requiere confirmar contraseña.  
+   - **Gestión de Categorías** (ADMIN):  
+     - Crear/editar/eliminar categoría, reasignando productos a "General" si se borra.  
+   - **Gestión de Productos** (ADMIN):  
+     - CRUD completo, control de inventario y `isSoldOut`, obtener más vendidos.  
+   - **Exploración de Productos** (CLIENT):  
+     - Listado, filtros por categoría, búsqueda por nombre, productos más vendidos.  
+   - **Carrito de Compras** (CLIENT):  
+     - Agregar/actualizar/eliminar productos.  
+   - **Proceso de Compra** (CLIENT):  
+     - **Checkout**: valida stock, descuenta inventario, genera factura y PDF.  
+   - **Gestión de Facturas** (ADMIN/CLIENT):  
+     - Visualizar facturas (CLIENT ve solo las suyas).  
+     - Detalle de factura, actualización de factura (ADMIN) con validación de stock.  
+   - **Historial de Compras** (CLIENT):  
+     - `GET /invoice/history`: obtiene facturas del usuario autenticado.
 
-5. **Finalización de la Solicitud**
-   - Se envía la respuesta final al cliente, cerrando el ciclo de la petición.
-   - Se registra la acción para seguimiento y auditoría.
+4. **Manejo de Errores**  
+   - Middlewares capturan validaciones (express-validator) y devuelven JSON con códigos 400 o 500.  
+   - Se centraliza la lógica en `handle-errors.js` para devolver un mensaje amigable.
+
+5. **Finalización de la Solicitud**  
+   - Se envía la respuesta final.  
+   - Se registra la acción en consola o logs.
 
 ---
 
 ## Instalación y Uso
 
-### Requisitos
+### Requisitos Previos
 
-- **NodeJS** y **npm** instalados.
-- **MongoDB** en funcionamiento.
-- **Postman** (u otra herramienta similar) para probar los endpoints.
+- **Node.js** y **npm** instalados.  
+- **MongoDB** en funcionamiento (local o remoto).  
+- **Postman** (u otra herramienta) para probar los endpoints.  
+- **Git** (opcional, para clonar el repositorio).
 
 ### Pasos para Ejecutar la API
 
-1. **Clonar el Repositorio:**
-
+1. **Clonar el Repositorio** (o descargar el código):
    ```bash
-   git clone <URL-del-repositorio>
+   git clone <URL-DEL-REPOSITORIO>
    cd proyecto-bimestral
+
+```bash
+proyecto-bimestral
+├── .env
+├── .gitignore
+├── README.md
+├── index.js
+├── package.json
+├── configs
+│   ├── mongo.js
+│   ├── server.js
+│   └── swagger.js
+├── public
+│   └── uploads
+│       └── profile-pictures
+└── src
+    ├── auth
+    │   ├── auth.controller.js
+    │   └── auth.routes.js
+    ├── cart
+    │   ├── cart.controller.js
+    │   ├── cart.model.js
+    │   └── cart.routes.js
+    ├── category
+    │   ├── category.controller.js
+    │   ├── category.model.js
+    │   └── category.routes.js
+    ├── helpers
+    │   ├── db-validators.js
+    │   └── generate-jwt.js
+    ├── invoice
+    │   ├── invoice.controller.js
+    │   ├── invoice.model.js
+    │   └── invoice.routes.js
+    ├── middlewares
+    │   ├── category-validators.js
+    │   ├── delete-file-on-error.js
+    │   ├── handle-errors.js
+    │   ├── multer-uploads.js
+    │   ├── pet-validators.js
+    │   ├── rate-limit-validator.js
+    │   ├── user-validators.js
+    │   ├── validate-fields.js
+    │   ├── validate-jwt.js
+    │   └── validate-roles.js
+    ├── product
+    │   ├── clientProduct.controller.js
+    │   ├── clientProduct.routes.js
+    │   ├── product.controller.js
+    │   ├── product.model.js
+    │   └── product.routes.js
+    └── user
+        ├── user.controller.js
+        ├── user.model.js
+        └── user.routes.js
