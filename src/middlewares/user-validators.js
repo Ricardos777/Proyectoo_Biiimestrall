@@ -1,15 +1,15 @@
-/*
-  Aquí agrupo varias validaciones de express-validator para 
-  registro, login y acciones específicas sobre usuarios.
-*/
-
 import { body, param } from "express-validator"
 import { emailExists, usernameExists, userExists } from "../helpers/db-validators.js"
-import { validarCampos } from "./validate-fields.js"
+import { validateFields } from "./validate-fields.js"
 import { deleteFileOnError } from "./delete-file-on-error.js"
 import { handleErrors } from "./handle-errors.js"
 import { validateJWT } from "./validate-jwt.js"
 import { hasRoles } from "./validate-roles.js"
+
+/*
+  Aquí agrupo varias validaciones de express-validator para 
+  registro, login y acciones específicas sobre usuarios.
+*/
 
 export const registerValidator = [
     body("name").notEmpty().withMessage("El nombre es requerido"),
@@ -27,7 +27,7 @@ export const registerValidator = [
         minSymbols: 1
     }).withMessage("La contraseña no cumple con los requisitos mínimos"),
     body("phone").isLength({min:8, max:8}).withMessage("El teléfono debe tener 8 dígitos"),
-    validarCampos,
+    validateFields,
     deleteFileOnError,
     handleErrors
 ]
@@ -37,51 +37,45 @@ export const loginValidator = [
     body("email").optional().isEmail().withMessage("No es un email válido"),
     body("username").optional().isString().withMessage("El username no es válido"),
     body("password").isLength({min: 4}).withMessage("La contraseña debe contener al menos 4 caracteres"),
-    validarCampos,
+    validateFields,
     handleErrors
 ]
 
-// Valido cuando quiero obtener un usuario por su id
 export const getUserByIdValidator = [
     validateJWT,
-    // Para este ejemplo, asumo que solo ADMIN y CLIENT pueden ver datos, ajusto según la lógica de negocio
     hasRoles("ADMIN","CLIENT"),
     param("uid").isMongoId().withMessage("No es un ID válido de MongoDB"),
     param("uid").custom(userExists),
-    validarCampos,
+    validateFields,
     handleErrors
 ]
 
-// Valido cuando quiero eliminar un usuario
 export const deleteUserValidator = [
     param("uid").isMongoId().withMessage("No es un ID válido de MongoDB"),
     param("uid").custom(userExists),
-    validarCampos,
+    validateFields,
     handleErrors
 ]
 
-// Valido cuando quiero actualizar la contraseña
 export const updatePasswordValidator = [
     param("uid").isMongoId().withMessage("No es un ID válido de MongoDB"),
     param("uid").custom(userExists),
     body("newPassword").isLength({min: 8}).withMessage("El password debe contener al menos 8 caracteres"),
-    validarCampos,
+    validateFields,
     handleErrors
 ]
 
-// Valido cuando quiero actualizar datos de un usuario
 export const updateUserValidator = [
     param("uid", "No es un ID válido").isMongoId(),
     param("uid").custom(userExists),
-    validarCampos,
+    validateFields,
     handleErrors
 ]
 
-// Valido cuando quiero actualizar la foto de perfil
 export const updateProfilePictureValidator = [
     param("uid").isMongoId().withMessage("No es un ID válido de MongoDB"),
     param("uid").custom(userExists),
-    validarCampos,
+    validateFields,
     deleteFileOnError,
     handleErrors
 ]
