@@ -199,3 +199,54 @@ proyecto-bimestral
         ├── user.controller.js
         ├── user.model.js
         └── user.routes.js
+
+
+
+
+
+
+Endpoints Principales
+Autenticación
+
+POST /auth/register
+POST /auth/login
+Usuarios
+
+GET /user (ADMIN)
+GET /user/findUser/:uid
+PUT /user/updateUser/:uid
+PATCH /user/updatePassword/:uid
+PATCH /user/updateProfilePicture/:uid
+DELETE /user/deleteUser/:uid (ADMIN)
+DELETE /user/deleteAccount (CLIENT)
+Categorías (ADMIN)
+
+POST /category
+GET /category
+PUT /category/:id
+DELETE /category/:id
+Productos (ADMIN)
+
+POST /product
+GET /product
+GET /product/:id
+PUT /product/:id
+DELETE /product/:id
+GET /product/mostSold
+Exploración de Productos (CLIENT)
+
+GET /client/products (filtros: search, category, limite, desde)
+GET /client/products/mostSold
+Carrito (CLIENT)
+
+GET /cart
+POST /cart/add
+PATCH /cart/update
+DELETE /cart/remove
+Facturas
+
+POST /invoice/checkout (CLIENT)
+GET /invoice/user/:userId (ADMIN o owner)
+GET /invoice/:invoiceId (ADMIN o owner)
+PUT /invoice/:invoiceId (ADMIN)
+GET /invoice/history (CLIENT)
