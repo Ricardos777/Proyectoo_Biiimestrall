@@ -1,8 +1,3 @@
-/*
-  En este archivo defino las rutas para las operaciones CRUD de usuarios.
-  Aplico validaciones y middlewares según sea necesario.
-*/
-
 import { Router } from "express"
 import {
     getUserById,
@@ -10,7 +5,8 @@ import {
     deleteUser,
     updatePassword,
     updateUser,
-    updateProfilePicture
+    updateProfilePicture,
+    deleteAccount
 } from "./user.controller.js"
 import {
     getUserByIdValidator,
@@ -20,6 +16,7 @@ import {
     updateProfilePictureValidator
 } from "../middlewares/user-validators.js"
 import { uploadProfilePicture } from "../middlewares/multer-uploads.js"
+import { validateJWT } from "../middlewares/validate-jwt.js"
 
 const router = Router()
 
@@ -127,11 +124,11 @@ router.patch("/updatePassword/:uid", updatePasswordValidator, updatePassword)
  *                 type: string
  *               surname:
  *                 type: string
+ *               username:
+ *                 type: string
  *               email:
  *                 type: string
  *               phone:
- *                 type: string
- *               role:
  *                 type: string
  *     responses:
  *       200:
@@ -162,18 +159,38 @@ router.put("/updateUser/:uid", updateUserValidator, updateUser)
  *             properties:
  *               profilePicture:
  *                 type: string
- *                  format: binary
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Foto de perfil actualizada
  *       400:
  *         description: Error en la solicitud
  */
-router.patch(
-    "/updateProfilePicture/:uid",
-    uploadProfilePicture.single("profilePicture"),
-    updateProfilePictureValidator,
-    updateProfilePicture
-)
+router.patch("/updateProfilePicture/:uid", uploadProfilePicture.single("profilePicture"), updateProfilePictureValidator, updateProfilePicture)
+
+/**
+ * @swagger
+ * /deleteAccount:
+ *   delete:
+ *     summary: Elimina la cuenta del usuario autenticado (requiere confirmación de contraseña)
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Cuenta eliminada correctamente
+ *       400:
+ *         description: Error en la solicitud o confirmación incorrecta
+ */
+router.delete("/deleteAccount", validateJWT, deleteAccount)
 
 export default router

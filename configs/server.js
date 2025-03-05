@@ -16,6 +16,8 @@ import productRoutes from "../src/product/product.routes.js"
 import clientProductRoutes from "../src/product/clientProduct.routes.js"
 import cartRoutes from "../src/cart/cart.routes.js"
 import invoiceRoutes from "../src/invoice/invoice.routes.js"
+import invoiceRoutes from "../src/invoice/invoice.routes.js"
+
 
 const middlewares = (app) => {
   app.use(express.urlencoded({ extended: false }))
@@ -57,6 +59,7 @@ const routes = (app) => {
   app.use("/salesSystem/v1/client", clientProductRoutes) 
   app.use("/salesSystem/v1/cart", cartRoutes)
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+  app.use("/salesSystem/v1/invoice", invoiceRoutes)
   app.use("/salesSystem/v1/invoice", invoiceRoutes)
 }
 

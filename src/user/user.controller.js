@@ -219,3 +219,48 @@ export const updateProfilePicture = async (req, res) => {
     })
   }
 }
+
+/*
+  Función deleteAccount:
+  Permite que el usuario autenticado (CLIENT) elimine su propia cuenta.
+  Se requiere enviar la contraseña de confirmación en el body.
+*/
+export const deleteAccount = async (req, res) => {
+  try {
+    const { password } = req.body
+    if (!password) {
+      return res.status(400).json({
+        success: false,
+        message: "Se requiere confirmar la contraseña para eliminar la cuenta"
+      })
+    }
+    // El usuario autenticado se obtiene de req.user
+    const user = await User.findById(req.user._id)
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Usuario no encontrado"
+      })
+    }
+    const isValid = await verify(user.password, password)
+    if (!isValid) {
+      return res.status(400).json({
+        success: false,
+        message: "La contraseña de confirmación es incorrecta"
+      })
+    }
+    // Marco la cuenta como eliminada (status false)
+    user.status = false
+    await user.save()
+    return res.status(200).json({
+      success: true,
+      message: "Cuenta eliminada correctamente"
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error al eliminar la cuenta",
+      error: error.message
+    })
+  }
+}
