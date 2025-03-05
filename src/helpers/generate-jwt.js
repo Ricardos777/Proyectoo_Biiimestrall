@@ -1,8 +1,3 @@
-/*
-  Aquí creo una función para generar el token JWT a partir del uid del usuario
-  usando la clave secreta definida en las variables de entorno.
-*/
-
 import jwt from "jsonwebtoken"
 
 export const generateJWT = (uid = "") => {

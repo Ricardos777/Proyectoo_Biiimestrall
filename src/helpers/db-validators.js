@@ -1,8 +1,3 @@
-/*
-  Aquí defino funciones que me ayudan a validar datos en la base de datos,
-  por ejemplo para chequear si un email o username ya existen.
-*/
-
 import User from "../user/user.model.js"
 
 export const emailExists = async (email = "") => {
